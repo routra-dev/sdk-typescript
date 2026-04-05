@@ -1,3 +1,5 @@
+import type OpenAI from "openai";
+
 export interface RoutingMetadata {
   provider: string;
   latency_ms: number;
@@ -10,7 +12,6 @@ export interface RoutingMetadata {
 }
 
 /** ChatCompletion response augmented with Routra routing metadata */
-export interface RoutraCompletion<T = unknown> extends Record<string, unknown> {
+export type RoutraCompletion = OpenAI.Chat.ChatCompletion & {
   routra?: RoutingMetadata;
-  _raw: T;
-}
+};

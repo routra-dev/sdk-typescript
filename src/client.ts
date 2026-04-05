@@ -1,4 +1,7 @@
 import OpenAI, { type ClientOptions } from "openai";
+import type { RoutingMetadata, RoutraCompletion } from "./types.js";
+
+export type { RoutingMetadata, RoutraCompletion };
 
 const BASE_URL = "https://api.routra.dev/v1";
 
@@ -44,6 +47,22 @@ export class Routra extends OpenAI {
       defaultHeaders,
       ...rest,
     });
+  }
+
+  /**
+   * Typed wrapper for non-streaming chat completions.
+   * The response includes `.routra` with routing metadata.
+   *
+   * For streaming, use `client.chat.completions.create({ stream: true, ... })` directly.
+   */
+  async completion(
+    body: Omit<OpenAI.Chat.ChatCompletionCreateParamsNonStreaming, "stream">,
+    options?: OpenAI.RequestOptions,
+  ): Promise<RoutraCompletion> {
+    return this.chat.completions.create(
+      body as OpenAI.Chat.ChatCompletionCreateParamsNonStreaming,
+      options,
+    ) as Promise<RoutraCompletion>;
   }
 
   /**
