@@ -16,7 +16,8 @@
     "build": "tsc",
     "dev": "bun run src/index.ts",
     "test": "bun test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "codegen": "bunx openapi-typescript ${SPEC_URL:-https://raw.githubusercontent.com/routra/contracts/main/openapi/routra.yaml} -o src/api-types.ts"
   },
   "keywords": ["routra", "openai", "llm", "gpu", "routing"],
   "license": "MIT",
