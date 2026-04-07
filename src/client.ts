@@ -8,7 +8,7 @@ const BASE_URL = "https://api.routra.dev/v1";
 export interface RoutraOptions extends Omit<ClientOptions, "baseURL"> {
   /** Routra API key (rtr-...) */
   apiKey: string;
-  /** Default routing policy name — sets X-Routra-Policy header on every request */
+  /** Default routing policy name - sets X-Routra-Policy header on every request */
   policy?: string;
   /** Override API base URL (useful for local dev / testing) */
   baseURL?: string;
@@ -17,7 +17,7 @@ export interface RoutraOptions extends Omit<ClientOptions, "baseURL"> {
 /**
  * Routra client. Drop-in replacement for `new OpenAI(...)`.
  *
- * Layer 1: point `baseURL` at Routra — all models route automatically.
+ * Layer 1: point `baseURL` at Routra - all models route automatically.
  * Layer 2: set a `policy` to apply routing constraints (cheapest, balanced, gdpr-eu, ...).
  *
  * @example
