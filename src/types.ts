@@ -12,7 +12,18 @@ export interface RoutingMetadata {
   ttfb_ms?: number;
 }
 
-/** ChatCompletion response augmented with Routra routing metadata. */
-export type RoutraCompletion = OpenAI.Chat.ChatCompletion & {
-  routra?: RoutingMetadata;
-};
+/**
+ * Augment the OpenAI SDK so `ChatCompletion` always carries the optional
+ * `.routra` field injected by the Routra proxy.
+ */
+declare module "openai" {
+  interface ChatCompletion {
+    routra?: RoutingMetadata;
+  }
+}
+
+/** Convenience alias — `ChatCompletion` now includes `.routra` via module augmentation. */
+export type RoutraCompletion = OpenAI.Chat.ChatCompletion;
+
+// Required to keep this file as a module (needed for declaration merging above).
+export {};
