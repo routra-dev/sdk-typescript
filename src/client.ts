@@ -29,7 +29,7 @@ export interface RoutraOptions extends Omit<ClientOptions, "baseURL"> {
  *   model: "auto",
  *   messages: [{ role: "user", content: "Hello" }],
  * });
- * console.log(resp.routra?.provider, resp.routra?.cost_usd);
+ * console.log(resp.routra?.provider, resp.routra?.score);
  * ```
  */
 export class Routra extends OpenAI {
@@ -73,6 +73,7 @@ export class Routra extends OpenAI {
     return new Routra({
       apiKey: this.apiKey,
       baseURL: this.baseURL.toString(),
+      defaultHeaders: this._options.defaultHeaders,
       policy,
     });
   }
