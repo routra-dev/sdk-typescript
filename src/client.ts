@@ -22,7 +22,7 @@ export interface RoutraOptions extends Omit<ClientOptions, "baseURL"> {
  *
  * @example
  * ```ts
- * import { Routra } from "routra";
+ * import { Routra } from "routra-sdk";
  *
  * const client = new Routra({ apiKey: "rtr-...", policy: "cheapest" });
  * const resp = await client.chat.completions.create({

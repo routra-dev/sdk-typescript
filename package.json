@@ -1,6 +1,6 @@
 {
-  "name": "routra",
-  "version": "0.1.0",
+  "name": "routra-sdk",
+  "version": "0.1.1",
   "description": "Routra TypeScript SDK - OpenAI-compatible client with intelligent GPU cloud routing",
   "module": "./src/index.ts",
   "main": "./dist/index.js",

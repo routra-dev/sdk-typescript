@@ -5,15 +5,15 @@ Thin wrapper over the [OpenAI TypeScript SDK](https://github.com/openai/openai-n
 ## Installation
 
 ```bash
-npm install routra
+npm install routra-sdk
 # or
-bun add routra
+bun add routra-sdk
 ```
 
 ## Quick Start
 
 ```typescript
-import { Routra } from "routra";
+import { Routra } from "routra-sdk";
 
 const client = new Routra({ apiKey: "rtr-..." });
 
@@ -102,8 +102,8 @@ const embedding = await client.embeddings.create({
 ## Exports
 
 ```typescript
-import { Routra } from "routra";
-import type { RoutraOptions, RoutingMetadata, RoutraCompletion } from "routra";
+import { Routra } from "routra-sdk";
+import type { RoutraOptions, RoutingMetadata, RoutraCompletion } from "routra-sdk";
 ```
 
 ## License
