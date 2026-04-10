@@ -1,5 +1,6 @@
 import OpenAI, { type ClientOptions } from "openai";
 import type { RoutingMetadata, RoutraCompletion } from "./types.js";
+import { ManagementClient } from "./management/index.js";
 
 export type { RoutingMetadata, RoutraCompletion };
 
@@ -33,6 +34,9 @@ export interface RoutraOptions extends Omit<ClientOptions, "baseURL"> {
  * ```
  */
 export class Routra extends OpenAI {
+  /** Management API client for keys, policies, usage, billing, and more. */
+  readonly management: ManagementClient;
+
   constructor({ apiKey, policy, baseURL = BASE_URL, ...rest }: RoutraOptions) {
     const defaultHeaders: Record<string, string> = {
       ...(rest.defaultHeaders as Record<string, string> | undefined),
@@ -47,6 +51,20 @@ export class Routra extends OpenAI {
       defaultHeaders,
       ...rest,
     });
+
+    // Build an authenticated fetch for the management API.
+    const mgmtBaseURL = baseURL.replace(/\/v1\/?$/, "");
+    const mgmtFetch = async (path: string, init?: RequestInit): Promise<Response> => {
+      const url = `${mgmtBaseURL}/v1${path}`;
+      return fetch(url, {
+        ...init,
+        headers: {
+          ...init?.headers,
+          Authorization: `Bearer ${apiKey}`,
+        },
+      });
+    };
+    this.management = new ManagementClient(mgmtFetch);
   }
 
   /**

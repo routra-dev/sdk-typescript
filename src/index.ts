@@ -9,7 +9,9 @@
 
 export { Routra } from "./client.js";
 export type { RoutraOptions } from "./client.js";
-export type { RoutingMetadata, RoutraCompletion } from "./types.js";
+export type { RoutingMetadata, RoutraCompletion, RoutraImagesResponse, RoutraEmbeddingResponse } from "./types.js";
+export { ManagementClient } from "./management/index.js";
+export type * from "./management/types.js";
 
 // Re-export OpenAI error types so callers can catch and discriminate errors
 // without adding `openai` as a direct dependency.

@@ -77,6 +77,34 @@ The `response.routra` field is a `RoutingMetadata` object:
 
 > **Note:** Metadata is only available on non-streaming responses. For streaming, check the `x-routra-provider` response header.
 
+## Multimodal Routing
+
+All OpenAI-compatible endpoints are proxied through Routra — use the same client for chat, embeddings, images, TTS, and STT with automatic cost routing:
+
+```typescript
+// Image — routes to cheapest: FLUX Schnell ($0.001) vs GPT Image 1.5 ($0.13)
+const image = await client.images.generate({
+  model: "auto:image",
+  prompt: "a sunset over mountains",
+  size: "1024x1024",
+});
+
+// TTS — voice passthrough, streaming supported
+const audio = await client.audio.speech.create({
+  model: "auto:tts",
+  input: "Hello, welcome to our service.",
+  voice: "alloy",
+});
+
+// STT — multipart form-data forwarded transparently
+const transcript = await client.audio.transcriptions.create({
+  model: "auto:stt",
+  file: fs.createReadStream("audio.mp3"),
+});
+```
+
+Use `auto:image`, `auto:tts`, `auto:stt` for cheapest routing, or pin a provider with `model: "openai/gpt-image-1.5"` or `model: "fireworks/flux-1-schnell"`.
+
 ## OpenAI Compatibility
 
 Since `Routra` extends `OpenAI`, all OpenAI SDK features work transparently:
@@ -96,6 +124,26 @@ for await (const chunk of stream) {
 const embedding = await client.embeddings.create({
   model: "text-embedding-3-small",
   input: "Hello world",
+});
+
+// Image Generation — auto-routes to cheapest provider
+const image = await client.images.generate({
+  model: "auto:image", // FLUX Schnell ($0.001) vs GPT Image 1.5 ($0.13)
+  prompt: "a sunset over mountains",
+  size: "1024x1024",
+});
+
+// Text-to-Speech
+const audio = await client.audio.speech.create({
+  model: "auto:tts",
+  input: "Hello, welcome to our service.",
+  voice: "alloy",
+});
+
+// Speech-to-Text
+const transcript = await client.audio.transcriptions.create({
+  model: "auto:stt",
+  file: fs.createReadStream("audio.mp3"),
 });
 ```
 

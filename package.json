@@ -1,6 +1,6 @@
 {
   "name": "routra-sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Routra TypeScript SDK - OpenAI-compatible client with intelligent GPU cloud routing",
   "module": "./dist/index.js",
   "main": "./dist/index.js",
@@ -21,8 +21,7 @@
     "prepublishOnly": "bun run build",
     "dev": "bun run src/index.ts",
     "test": "bun test",
-    "typecheck": "tsc --noEmit",
-    "codegen": "bunx openapi-typescript ${SPEC_URL:-https://raw.githubusercontent.com/routra/contracts/main/openapi/routra.yaml} -o src/types.gen.ts"
+    "typecheck": "tsc --noEmit"
   },
   "keywords": ["routra", "openai", "llm", "gpu", "routing"],
   "license": "MIT",
